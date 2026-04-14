@@ -1,0 +1,64 @@
+modules = ["nodejs-24", "postgresql-16"]
+
+  [[artifacts]]
+  id = "artifacts/sakanmatch"
+
+  [[artifacts]]
+  id = "artifacts/api-server"
+
+  [[artifacts]]
+  id = "artifacts/mockup-sandbox"
+
+  [deployment]
+  router = "application"
+  deploymentTarget = "autoscale"
+
+  [deployment.postBuild]
+  args = ["pnpm", "store", "prune"]
+  env = { "CI" = "true" }
+
+  [workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo 'Services managed by artifact workflows' && sleep infinity"
+
+  [agent]
+  stack = "PNPM_WORKSPACE"
+expertMode = true
+
+  [postMerge]
+  path = "scripts/post-merge.sh"
+  timeoutMs = 20000
+
+  [userenv]
+
+  [userenv.shared]
+PRIVATE_OBJECT_DIR = "/replit-objstore-e1fdea2f-86e4-46af-95e3-d55817b78e6a/private"
+PUBLIC_OBJECT_SEARCH_PATHS = "/replit-objstore-e1fdea2f-86e4-46af-95e3-d55817b78e6a/public"
+DEFAULT_OBJECT_STORAGE_BUCKET_ID = "replit-objstore-e1fdea2f-86e4-46af-95e3-d55817b78e6a"
+PAYPAL_PREMIUM_PLAN_ID = "P-7HE53240XU3710542NHFAHCA"
+
+[nix]
+channel = "stable-25_05"
+
+[objectStorage]
+defaultBucketID = "replit-objstore-e1fdea2f-86e4-46af-95e3-d55817b78e6a"
+  

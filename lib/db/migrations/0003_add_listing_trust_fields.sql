@@ -1,0 +1,10 @@
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "deposit" numeric(10, 2);
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "utilities_included" boolean DEFAULT false NOT NULL;
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "furnished" boolean DEFAULT false NOT NULL;
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "available_from" date;
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "room_type" text;
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "preferred_tenant_gender" text DEFAULT 'no_preference';
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "min_stay_months" integer;
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "house_rules" text;
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "is_identity_verified" boolean DEFAULT false NOT NULL;
+ALTER TABLE "listings" ADD COLUMN IF NOT EXISTS "is_location_verified" boolean DEFAULT false NOT NULL;
